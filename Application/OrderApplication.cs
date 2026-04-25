@@ -1,5 +1,6 @@
 using LegacyOrderService.Services;
 using LegacyOrderService.Models;
+using LegacyOrderService.Validators;
 
 namespace LegacyOrderService.Application
 {
@@ -7,11 +8,13 @@ namespace LegacyOrderService.Application
     {
         private ProductService _productService;
         private OrderService _orderService;
-
-        public OrderApplication(ProductService productService, OrderService orderService)
+        private OrderValidator _orderValidator;
+        
+        public OrderApplication(ProductService productService, OrderService orderService, OrderValidator orderValidator)
         {
             _productService = productService;
             _orderService = orderService;
+            _orderValidator = orderValidator;
         }
 
         public void Run()
@@ -25,10 +28,18 @@ namespace LegacyOrderService.Application
             double price = this._productService.GetPrice(product);
 
             Console.WriteLine("Enter quantity:");
-            int qty = Convert.ToInt32(Console.ReadLine());
+            string qty = Console.ReadLine();
 
+            Console.WriteLine("Validating Information...");
+            ValidationResult validationResult = this._orderValidator.Validate(name, product, qty);
+            if(!validationResult.IsValid)
+            {
+                Console.WriteLine(validationResult.GetFullErrorMessage());
+                return;
+            }
+            
             Console.WriteLine("Processing order...");            
-            Order order = this._orderService.CreateOrder(name, product, price, qty);
+            Order order = this._orderService.CreateOrder(name, product, price, Convert.ToInt32(qty));
 
             Console.WriteLine("Order complete!");
             Console.WriteLine("Customer: " + order.CustomerName);

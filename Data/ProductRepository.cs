@@ -20,10 +20,12 @@ namespace LegacyOrderService.Data
             // Simulate an expensive lookup
             Thread.Sleep(500);
 
-            if (_productPrices.TryGetValue(productName, out var price))
-                return price;
+            return _productPrices.GetValueOrDefault(productName);
+        }
 
-            throw new Exception("Product not found");
+        public bool Exists(string productName)
+        {
+            return _productPrices.ContainsKey(productName);
         }
     }
 }
