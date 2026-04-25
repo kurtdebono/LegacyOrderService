@@ -2,6 +2,7 @@ using LegacyOrderService.Interfaces;
 using LegacyOrderService.Application;
 using LegacyOrderService.Data;
 using LegacyOrderService.Services;
+using LegacyOrderService.Validators;
 
 namespace LegacyOrderService
 {
@@ -15,7 +16,9 @@ namespace LegacyOrderService
             ProductService productService = new ProductService(productRepo);
             OrderService orderService = new OrderService(orderRepo);            
 
-            OrderApplication orderApp = new OrderApplication(productService, orderService);
+            OrderValidator orderValidator = new OrderValidator(productService);
+
+            OrderApplication orderApp = new OrderApplication(productService, orderService, orderValidator);
 
             orderApp.Run();
         }
