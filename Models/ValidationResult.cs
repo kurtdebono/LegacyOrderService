@@ -7,10 +7,12 @@ namespace LegacyOrderService.Models
         public bool IsValid => !Errors.Any();
 
         public List<string> Errors { get; }
+        public int? ParsedQuantity { get; }
 
-        public ValidationResult(List<string> errors)
+        public ValidationResult(List<string> errors, int? quantity)
         {
-            this.Errors = errors;
+            Errors = errors;
+            ParsedQuantity = quantity;
         }
 
         public string GetFullErrorMessage()

@@ -15,22 +15,22 @@ namespace LegacyOrderService.Services
             _orderRepository = orderRepository;
         }
 
-        public Order CreateOrder(string customerName, string productName, double price, int quantity)
+        public Order CreateOrder(string customerName, string productName, decimal price, int quantity)
         {
-            Order order = new Order();
-            order.CustomerName = customerName;
-            order.ProductName = productName;
-            order.Quantity = quantity;
-            order.Price = price;
-
-            return order;
+            return new Order()
+            {
+                CustomerName = customerName,
+                ProductName = productName,
+                Quantity = quantity,
+                Price = price
+            };            
         }
 
         public void Save(Order order)
         {
             try
             {
-                this._orderRepository.Save(order);
+                _orderRepository.Save(order);
             }
             catch(SqliteException sqlEx)
             {
