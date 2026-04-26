@@ -16,17 +16,10 @@ namespace LegacyOrderService.Tests
         [Fact]
         public void Validate_WithValidInput_ReturnsValidResultAndParsedQuantity()
         {
-            // Mock<IProductRepository> mockProductRepository = new Mock<IProductRepository>();
-            
-            // mockProductRepository.Setup(r => r.Exists(It.IsAny<string>())).Returns(true);
-            
-            // ProductService productService = new ProductService(mockProductRepository.Object);            
-
             string customerName = "Tony";
             string productName = "Gadget";            
             string quantity = "4";
-
-            // OrderValidator orderValidator = new OrderValidator(productService);
+            
             OrderValidator orderValidator = _createValidator(true);
             ValidationResult validationResult = orderValidator.Validate(customerName, productName, quantity);
 
@@ -184,7 +177,7 @@ namespace LegacyOrderService.Tests
                 .Setup(r => r.Exists(It.IsAny<string>()))
                 .Returns(productExists);
 
-            ProductService productService = new ProductService(mockProductRepository.Object);
+            IProductService productService = new ProductService(mockProductRepository.Object);
 
             return new OrderValidator(productService);
         }

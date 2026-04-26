@@ -9,13 +9,13 @@ namespace LegacyOrderService.Application
 {
     public class OrderApplication
     {
-        private ProductService _productService;
+        private IProductService _productService;
         private OrderService _orderService;
         private OrderValidator _orderValidator;
 
         private ILogger<OrderApplication> _logger;
         
-        public OrderApplication(ProductService productService, OrderService orderService, OrderValidator orderValidator, ILogger<OrderApplication> logger)
+        public OrderApplication(IProductService productService, OrderService orderService, OrderValidator orderValidator, ILogger<OrderApplication> logger)
         {
             _productService = productService;
             _orderService = orderService;

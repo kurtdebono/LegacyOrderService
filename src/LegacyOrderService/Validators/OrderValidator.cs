@@ -6,9 +6,9 @@ namespace LegacyOrderService.Validators
 {
     public class OrderValidator
     {
-        private readonly ProductService _productService;
+        private readonly IProductService _productService;
 
-        public OrderValidator(ProductService productService)
+        public OrderValidator(IProductService productService)
         {
             _productService = productService;
         }
