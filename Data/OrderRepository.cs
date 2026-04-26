@@ -46,7 +46,7 @@ namespace LegacyOrderService.Data
                     command.Parameters.AddWithValue("@ProductName", "Widget");
                     command.Parameters.AddWithValue("@Quantity", 9999);
                     command.Parameters.AddWithValue("@Price", 9.99);
-
+                    
                     command.ExecuteNonQuery();
                 }
             }

@@ -10,7 +10,7 @@ namespace LegacyOrderService.Services
         }
 
         public double GetPrice(string productName)
-        {
+        {        
             return _productRepository.GetPrice(productName);
         }
 

@@ -4,6 +4,9 @@ using LegacyOrderService.Data;
 using LegacyOrderService.Services;
 using LegacyOrderService.Validators;
 
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+
 namespace LegacyOrderService
 {
     class Program
@@ -18,7 +21,14 @@ namespace LegacyOrderService
 
             OrderValidator orderValidator = new OrderValidator(productService);
 
-            OrderApplication orderApp = new OrderApplication(productService, orderService, orderValidator);
+            ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddConsole();
+            });
+
+            ILogger<OrderApplication> logger = loggerFactory.CreateLogger<OrderApplication>();
+
+            OrderApplication orderApp = new OrderApplication(productService, orderService, orderValidator, logger);
 
             orderApp.Run();
         }

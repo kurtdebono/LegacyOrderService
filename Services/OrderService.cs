@@ -1,6 +1,8 @@
 using LegacyOrderService.Interfaces;
 using LegacyOrderService.Data;
 using LegacyOrderService.Models;
+using Microsoft.Data.Sqlite;
+using LegacyOrderService.Exceptions;
 
 namespace LegacyOrderService.Services
 {
@@ -26,7 +28,14 @@ namespace LegacyOrderService.Services
 
         public void Save(Order order)
         {
-            this._orderRepository.Save(order);
+            try
+            {
+                this._orderRepository.Save(order);
+            }
+            catch(SqliteException sqlEx)
+            {
+                throw new DatabaseOperationException("Failed to save order.", sqlEx);
+            }
         }
     }
 }
