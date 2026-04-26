@@ -2,11 +2,11 @@ namespace LegacyOrderService.Models
 {
     public class Order
     {
-        public string CustomerName;
-        public string ProductName;
+        public required string CustomerName { get; set; }
+        public required string ProductName { get; set; }
         public int Quantity;
-        public double Price;
+        public decimal Price;
 
-        public double Total => Price * Quantity;
+        public decimal Total => Price * Quantity;
     }
 }

@@ -10,10 +10,10 @@ namespace LegacyOrderService.Validators
 
         public OrderValidator(ProductService productService)
         {
-            this._productService = productService;
+            _productService = productService;
         }
 
-        public ValidationResult Validate(string customerName, string product, string quantity)
+        public ValidationResult Validate(string customerName, string product, string quantityInput)
         {
             List<string> errors = new List<string>();
 
@@ -26,21 +26,30 @@ namespace LegacyOrderService.Validators
             {
                 errors.Add("Product name is required");
             }
-            else if(!this._productService.Exists(product))
+            else if(!_productService.Exists(product))
             {
-                errors.Add($@"The product [{product}] is currently out of stock");
+                errors.Add($"The product [{product}] is currently out of stock");
             }
 
-            if(!int.TryParse(quantity, out int qty))
+            int? quantity = null;
+            if(string.IsNullOrWhiteSpace(quantityInput))
             {
-                errors.Add("Quantity is not a valid number");
+                errors.Add("Quantity is required");
             }
-            else if(qty <= 0)
+            else if(!int.TryParse(quantityInput, out int parsedQuantity))
+            {
+                errors.Add("Quantity is not a valid number");                                    
+            }
+            else if(parsedQuantity <= 0)
             {
                 errors.Add("Quantity is not greater than 0");
             }
+            else
+            {
+                quantity = parsedQuantity;
+            }
 
-            return new ValidationResult(errors);
+            return new ValidationResult(errors, quantity);
         }
     }
 }
