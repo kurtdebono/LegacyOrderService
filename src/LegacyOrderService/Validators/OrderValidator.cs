@@ -13,6 +13,15 @@ namespace LegacyOrderService.Validators
             _productService = productService;
         }
 
+        /// <summary>
+        /// </summary>
+        /// Validates the order input provided by the user, ensuring all required fields 
+        /// are present, correctly formatted and meet rules.
+        /// <param name="customerName">The name of the customer placing the order.</param>
+        /// <param name="product">The name of the product being ordered.</param>
+        /// <param name="quantityInput">The raw quantity input provided by the user.</param>
+        /// <returns>A <see cref="ValidationResult"/> indicating whether the input is valid, 
+        /// and also providing a list of errors and the parsed quantity when applicable.</returns>
         public ValidationResult Validate(string customerName, string product, string quantityInput)
         {
             List<string> errors = new List<string>();
