@@ -23,6 +23,7 @@ namespace LegacyOrderService.Data
             return _productPrices.GetValueOrDefault(productName);
         }
 
+        /// <inheritdoc />
         public bool Exists(string productName)
         {
             return _productPrices.ContainsKey(productName);

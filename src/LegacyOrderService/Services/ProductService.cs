@@ -14,6 +14,7 @@ namespace LegacyOrderService.Services
             return _productRepository.GetPrice(productName);
         }
 
+        /// <inheritdoc />
         public bool Exists(string productName)
         {            
             return _productRepository.Exists(productName);

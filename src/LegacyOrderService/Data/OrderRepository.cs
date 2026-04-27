@@ -14,6 +14,7 @@ namespace LegacyOrderService.Data
             _connectionString = connectionString ?? $"Data Source={Path.Combine(AppContext.BaseDirectory, "orders.db")}";
         }
 
+        /// <inheritdoc />
         public void Save(Order order)
         {
             using(SqliteConnection connection = new SqliteConnection(_connectionString))
