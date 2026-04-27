@@ -7,7 +7,13 @@ namespace LegacyOrderService.Data
 {
     public class OrderRepository : IOrderRepository
     {
-        private string _connectionString = $"Data Source={Path.Combine(AppContext.BaseDirectory, "orders.db")}";
+        private string? _connectionString = null;
+
+        public OrderRepository(string? connectionString = null)
+        {
+            _connectionString = connectionString ?? $"Data Source={Path.Combine(AppContext.BaseDirectory, "orders.db")}";
+        }
+
         public void Save(Order order)
         {
             using(SqliteConnection connection = new SqliteConnection(_connectionString))
